@@ -47,7 +47,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   user.save({ validateBeforeSave: false });
 
   // 4 Send it to Users Email
-  // const activationURL = `http://localhost:5000/api/v1/users/confirmMail/${activationToken}`;
+  // let activationURL = `http://localhost:5000/api/v1/users/confirmMail/${activationToken}`;
   let activationURL;
   if (process.env.NODE_ENV === 'development')
     activationURL = `${req.protocol}://${req.get('host')}/api/v1/confirmMail/${activationToken}`;
@@ -69,7 +69,7 @@ exports.signup = catchAsync(async (req, res, next) => {
       user,
     },
   });
-  // creatsendToken(newUser, 201, res);
+  creatsendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -78,7 +78,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
   if (!email || !password) {
     //  check email and password exist
-    return next(new AppError(' please proveide email and password ', 400));
+    return next(new AppError(' please provide email and password ', 400));
   }
 
   const user = await User.findOne({ email }).select('+password'); // select expiclity password
@@ -94,8 +94,8 @@ exports.login = catchAsync(async (req, res, next) => {
 
   console.log(`user`, user);
 
-  if (user.activated === false)
-    return next(new AppError(`Plz Activate your email by then Link sent to your email ${user.email}`, 401));
+  // if (user.activated === false)
+  //return next(new AppError(`Plz Activate your email by then Link sent to your email ${user.email}`, 401));
 
   // if eveything is ok
   creatsendToken(user, 200, res);

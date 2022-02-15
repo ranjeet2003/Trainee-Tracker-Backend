@@ -1,5 +1,7 @@
 # Dependencies
 node_modules
+.env.example
+config.env
 
 # yarn error logs
 yarn-error.log

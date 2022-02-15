@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 const DBCluster = process.env.DATABASE;
 const DBLocal = process.env.DATABASE_LOCAL;
@@ -9,7 +10,7 @@ DB_URL = DB_URL.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
 if (process.argv[2] && process.argv[2] === 'dblocal') DB_URL = DBLocal;
 
-console.log(`DB_URL`, DB_URL);
+// console.log(`DB_URL`, DB_URL);
 
 module.exports = () => {
   console.log('connecting to DB...');
